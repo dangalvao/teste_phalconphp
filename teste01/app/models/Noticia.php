@@ -13,6 +13,8 @@ class Noticia extends Model
     private $texto;
     private $data_ultima_atualizacao;
     private $data_cadastro;
+    private $publicado;
+    private $data_publicacao;
 
     public function initialize()
     {
@@ -67,6 +69,26 @@ class Noticia extends Model
     public function setData_cadastro($data_cadastro)
     {
         $this->data_cadastro = $data_cadastro;
+    }
+
+    public function getPublicado()
+    {
+        return $this->publicado;
+    }
+    
+    public function setPublicado($publicado)
+    {
+        $this->publicado = $publicado;
+    }
+
+    public function getData_publicacao()
+    {
+        return $this->data_publicacao;
+    }
+    
+    public function setData_publicacao($data_publicacao)
+    {
+        $this->data_publicacao = $data_publicacao;
     }
     
 }

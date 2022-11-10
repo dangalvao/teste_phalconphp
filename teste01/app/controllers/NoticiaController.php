@@ -14,7 +14,8 @@ class NoticiaController extends ControllerBase
 
     public function cadastrarAction()
     {
-        
+        $categorias = Categoria::find();
+        $this->view->categorias = $categorias;
         $this->view->pick("noticia/cadastrar");
 
     }
@@ -22,13 +23,26 @@ class NoticiaController extends ControllerBase
     public function editarAction($id)
     {
         $noticia = Noticia::findFirst($id);
+        $categorias = Categoria::find();
+        $noticia_categorias = NoticiaCategoria::find("id_noticia=" . $id);
+
+        $categorias_noticia = [];
+
+        foreach ($noticia_categorias as $noticia_categoria) {
+            $categorias_noticia[] = $noticia_categoria->getId_categoria();
+        }
+
         $this->view->noticia = $noticia;
+        $this->view->categorias = $categorias;
+        $this->view->categorias_noticia = $categorias_noticia;
         $this->view->pick("noticia/editar");
     }
 
     public function salvarAction()
     {
         $id = $this->request->getPost('id');
+
+        $categorias = $this->request->getPost('categoria');
 
         $data = new DateTime();
 
@@ -48,6 +62,13 @@ class NoticiaController extends ControllerBase
         $noticia->setTexto($this->request->getPost('texto'));
         $noticia->setData_ultima_atualizacao($data->format('Y-m-d H:i:s'));
 
+        $publicado = $this->request->getPost('publicado');
+        $noticia->setPublicado($publicado);
+
+        if($publicado == 1){
+            $noticia->setData_publicacao($this->request->getPost('data_publicacao'));
+        }
+
         if(!$noticia->getTitulo()){
             $this->flash->error('O título é obrigatório');
             return $this->response->redirect(array('for' => 'noticia.' . $verbo, 'id' => $id));
@@ -60,6 +81,15 @@ class NoticiaController extends ControllerBase
         $sucesso = $noticia->save();
 
         if($sucesso){
+            $noticia_categorias = NoticiaCategoria::find("id_noticia=" . $noticia->getId());
+            $noticia_categorias->delete();
+
+            foreach($categorias as $categoria){
+                $noticia_categoria = new NoticiaCategoria();
+                $noticia_categoria->setId_noticia($noticia->getId());
+                $noticia_categoria->setId_categoria($categoria);
+                $noticia_categoria->save();
+            }
             $this->flash->success('Notícia ' . $acao . ' com sucesso!');
             return $this->response->redirect(array('for' => 'noticia.lista'));
         }
@@ -72,6 +102,9 @@ class NoticiaController extends ControllerBase
      public function excluirAction($id)
      {
         $noticia = Noticia::findFirst($id);
+
+        $noticia_categorias = NoticiaCategoria::find("id_noticia=" . $noticia->getId());
+        $noticia_categorias->delete();
 
         $sucesso = $noticia->delete();
 

@@ -474,3 +474,12 @@ button.btn-situacao.aguardando_aprovacao-cliente {
 .credenciais { float:left;  width: 70% !important; }
 
 table tr.nao_clica{cursor: auto;}
+
+.categorias{
+    display: flex;
+    align-items: center;
+}
+
+.data_pub_div{
+    display: none;
+}
