@@ -37,33 +37,17 @@
 										</tr>
 									</thead>
 									<tbody>
+                                        <?php foreach ($noticias as $noticia) {?>
 										<tr>
-                                            <td><a href="#">#1</a></td>
-                                            <td class="titulo"> Título</td>
-                                            <td class="text-center">Texto</td>
+                                            <td><a href="#">{{noticia.getId()}}</a></td>
+                                            <td class="titulo">{{noticia.getTitulo()}}</td>
+                                            <td class="text-center">{{noticia.getTexto()}}</td>
                                             <td>
-                                                <a href="{{ url(['for':'noticia.editar',"id":1]) }}"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                <a href="{{ url(['for':'noticia.excluir',"id":1]) }}"><span class="glyphicon glyphicon-remove-sign"></span></a>
+                                                <a href="{{ url('noticias/editar') }}/{{noticia.getId()}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                                <a href="{{ url('noticias/excluir') }}/{{noticia.getId()}}"><span class="glyphicon glyphicon-remove-sign"></span></a>
                                             </td>
 										</tr>
-                                        <tr>
-                                            <td><a href="#">#2</a></td>
-                                            <td class="titulo"> Título 2</td>
-                                            <td class="text-center">Texto 2</td>
-                                            <td>
-                                                <a href="{{ url(['for':'noticia.editar',"id":2]) }}"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                <a href="{{ url(['for':'noticia.excluir',"id":2]) }}"><span class="glyphicon glyphicon-remove-sign"></span></a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><a href="#">#3</a></td>
-                                            <td class="titulo"> Título 3</td>
-                                            <td class="text-center">Texto 3</td>
-                                            <td>
-                                                <a href="{{ url(['for':'noticia.editar',"id":3]) }}"><span class="glyphicon glyphicon-pencil"></span></a>
-                                                <a href="{{ url(['for':'noticia.excluir',"id":3]) }}"><span class="glyphicon glyphicon-remove-sign"></span></a>
-                                            </td>
-                                        </tr>
+                                        <?php } ?>
 									</tbody>
 								</table>
                             </div><!-- panel-body -->

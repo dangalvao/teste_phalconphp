@@ -15,6 +15,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         <div class="row">
+                                            {{ flash.output(true) }}
                                             <div class="form-group col-sm-12">
                                                 <label for ="Titulo">Título <span class="error">(*)<span></label>
                                                 {{ text_field("titulo", "width": '100%', "class": 'form-control') }}

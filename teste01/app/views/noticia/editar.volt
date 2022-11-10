@@ -17,22 +17,23 @@
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="form-group col-sm-12">
-                                                <p><strong>Data de Criação:</strong> 22/07/2017 11:18:22</p>
-                                                <p><strong>Data da Última Atualização:</strong> 22/07/2017 11:18:22</p>
+                                                <p><strong>Data de Criação:</strong> {{noticia.getData_cadastro()}}</p>
+                                                <p><strong>Data da Última Atualização:</strong> {{noticia.getData_ultima_atualizacao()}}</p>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-sm-12">
                                                 <label for ="Titulo">Título <span class="error">(*)<span></label>
-                                                <input type="text" value="Texto 1" width='100%' class= "form-control">
+                                                <input name= "titulo" type="text" value="{{noticia.getTitulo()}}" width='100%' class= "form-control">
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-sm-12">
                                                 <label for ="Texto">Texto</label>
-                                                <textarea class= "form-control">Texto 1</textarea>
+                                                <textarea name = "texto" class= "form-control">{{noticia.getTexto()}}</textarea>
                                             </div>
                                         </div>
+                                        <input type="hidden" name="id" value="{{noticia.getId()}}">
                                     </div>{#/.panel-body#}
                                 </div>{#/.panel#}
                                 <div class="row" style="text-align:right;">
